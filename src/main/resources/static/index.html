@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0b">
+  <title>Movie Match — Semantic Discovery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Explicit disclaimer: frontend not built by the backend author -->
+<div class="disclaimer-banner" role="note">
+  <span class="disclaimer-icon">ℹ</span>
+  <p>
+    <strong>Frontend disclaimer:</strong> This UI was <em>not</em> created by the project author.
+    It exists only to visually demonstrate what the backend application is capable of
+    (semantic search + cosine-similarity recommendations).
+  </p>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <span class="logo-icon">◈</span>
+      <span class="logo-text">MOVIE<span class="accent">MATCH</span></span>
+    </a>
+    <div class="status" id="apiStatus">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">Checking backend…</span>
+      <span class="status-port">:8081</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Search by description -->
+  <section class="hero">
+    <p class="eyebrow">Semantic Movie Search</p>
+    <h1>Describe a movie.<br>Get the closest matches.</h1>
+    <p class="hero-sub">
+      Type a plot, mood, theme, or vibe. The backend embeds your text and ranks movies by cosine similarity.
+    </p>
+
+    <form id="searchForm" class="search-box" autocomplete="off">
+      <input
+              id="descriptionInput"
+              type="search"
+              placeholder="e.g. A lonely astronaut fights to survive on a hostile planet…"
+              aria-label="Describe a movie"
+              required
+      >
+      <button type="submit" id="searchBtn">
+        <span id="searchBtnText">Search</span>
+      </button>
+    </form>
+
+    <div class="suggestions">
+      <span class="suggestions-label">Try</span>
+      <button type="button" class="chip" data-q="A mind-bending story where reality cannot be trusted">Mind-bending reality</button>
+      <button type="button" class="chip" data-q="An underdog fights against the odds to achieve an impossible dream">Underdog story</button>
+      <button type="button" class="chip" data-q="A thrilling space survival story with science and isolation">Space survival</button>
+      <button type="button" class="chip" data-q="Friends on a journey that changes how they see life">Life-changing journey</button>
+    </div>
+  </section>
+
+  <!-- Search results (top ≤ 3) -->
+  <section id="searchSection" class="section hidden">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow left">Semantic matches</p>
+        <h2>Top matches for your description</h2>
+      </div>
+      <span class="badge" id="searchBadge">TOP 3</span>
+    </div>
+    <div id="searchResults" class="cards"></div>
+  </section>
+
+  <!-- Similar movies (click a movie) -->
+  <section id="similarSection" class="section hidden">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow left">Related recommendations</p>
+        <h2 id="similarHeading">Movies similar to…</h2>
+      </div>
+      <button type="button" id="closeSimilar" class="btn-ghost">Close</button>
+    </div>
+    <div id="similarResults" class="cards"></div>
+  </section>
+
+  <!-- Catalog -->
+  <section class="section catalog">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow left">Library</p>
+        <h2>Browse all movies</h2>
+        <p class="section-sub">Click any title to get top similar movies by cosine similarity.</p>
+      </div>
+      <div class="catalog-tools">
+        <span class="badge" id="catalogCount">—</span>
+        <input id="catalogFilter" type="search" placeholder="Filter by title…" aria-label="Filter movies">
+      </div>
+    </div>
+    <div id="catalogGrid" class="catalog-grid"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>
+    Backend: Spring Boot · Embeddings · Cosine similarity &nbsp;·&nbsp;
+    Frontend built only for demonstration (not by the project author).
+  </p>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
