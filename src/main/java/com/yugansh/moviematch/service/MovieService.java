@@ -83,20 +83,18 @@ public class MovieService {
 
     private double cosineSimilarity(float[] a, float[] b) {
         double dotProduct = 0.0;
-        double normA = 0.0;
-        double normB = 0.0;
+        double sqrA = 0.0;
+        double sqrB = 0.0;
 
-        for (int i = 0; i < a.length; i++) {
-            dotProduct += (a[i] * b[i]);
-            normA += (a[i] * a[i]);
-            normB += (b[i] * b[i]);
+        for(int i = 0; i < a.length; i++) {
+            dotProduct = dotProduct + a[i] * b[i];
+            sqrA = sqrA + (a[i] * a[i]);
+            sqrB = sqrB + (b[i] * b[i]);
         }
+        if(sqrA == 0.0 || sqrB == 0.0) return 0.0;
 
-        if (normA == 0.0 || normB == 0.0) {
-            return 0.0;
-        }
+        return dotProduct / (Math.sqrt(sqrA) * Math.sqrt(sqrB));
 
-        return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
     }
 
     private void sortBySimilarity(List<MovieCosines> list) {
