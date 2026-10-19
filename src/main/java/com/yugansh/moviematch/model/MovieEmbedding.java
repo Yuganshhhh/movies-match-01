@@ -2,6 +2,7 @@ package com.yugansh.moviematch.model;
 
 import lombok.*;
 
+// Holds a movie together with its vector embedding for similarity calculations
 @Getter
 @Setter
 @AllArgsConstructor
