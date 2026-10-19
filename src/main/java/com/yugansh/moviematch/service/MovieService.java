@@ -22,8 +22,10 @@ public class MovieService {
 
     private final JsonMapper jsonMapper;
     private final EmbeddingModel embeddingModel;
+    // In-memory list of all movies with their pre-computed embeddings
     private final List<MovieEmbedding> movieEmbeddingList = new ArrayList<>();
 
+    // Performs semantic search: embed the query and rank movies by cosine similarity
     public List<MovieCosines> search(String description) {
 
         List<MovieCosines> movieCosinesList = new ArrayList<>();
@@ -47,6 +49,7 @@ public class MovieService {
 
     }
 
+    // Finds the top similar movies to a given title (excluding the title itself)
     public List<MovieCosines> similarMovies(String title){
 
         List<MovieCosines> movieCosinesList = new ArrayList<>();
